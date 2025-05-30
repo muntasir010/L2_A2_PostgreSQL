@@ -45,6 +45,9 @@ INSERT INTO sightings(species_id,ranger_id,location,sighting_time,notes)VALUES
 (1,2,'Snowfall Pass','2024-05-18 18:30:00',NULL);
 
 
--- Problem: 1. Insert data
+-- Problem: 1
 INSERT INTO rangers(name, region) VALUES
 ('Derek Fox', 'Coastal Plains');
+
+--Problem:2
+SELECT count(DISTINCT species_id)AS unique_species_count  FROM sightings;
