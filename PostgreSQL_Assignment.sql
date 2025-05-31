@@ -98,4 +98,11 @@ $$
     END;
 $$;
 
-SELECT sighting_id,set_label(sighting_time) as time_of_day FROM sightings;
+SELECT sighting_id,set_label(sighting_time) AS time_of_day FROM sightings;
+
+
+-- Problem:9
+DELETE FROM rangers
+WHERE ranger_id IN (SELECT r.ranger_id FROM sightings AS si
+right JOIN rangers AS r ON r.ranger_id = si.ranger_id
+WHERE si.ranger_id IS NULL);
