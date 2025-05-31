@@ -79,3 +79,23 @@ ORDER BY sighting_time DESC LIMIT 2;
 UPDATE species
 SET conservation_status = 'Historic'
 WHERE extract(YEAR FROM discovery_date) < 1800;
+
+
+-- Problem:8
+CREATE or replace FUNCTION set_label(sighting_time TIMESTAMP)
+RETURNS VARCHAR(20)
+LANGUAGE plpgsql
+AS
+$$
+    BEGIN
+        IF extract(HOUR FROM sighting_time) < 12 THEN
+            RETURN 'Morning';
+        ELSEIF extract(HOUR FROM sighting_time) >= 12 AND extract(HOUR FROM sighting_time) <= 17 THEN
+            RETURN 'Afternoon';
+        ELSEIF extract(HOUR FROM sighting_time) > 17 THEN
+            RETURN 'Evening';
+        END IF;
+    END;
+$$;
+
+SELECT sighting_id,set_label(sighting_time) as time_of_day FROM sightings;
